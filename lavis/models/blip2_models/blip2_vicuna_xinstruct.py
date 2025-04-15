@@ -31,7 +31,7 @@ from lavis.common.registry import registry
 from lavis.models.base_model import BaseModel
 from lavis.models.blip2_models.blip2 import Blip2Base, disabled_train, LayerNorm
 # from lavis.models.ulip_models.ULIP_models import ULIP_PointBERT
-from lavis.tasks.multimodal_classification import MultimodalClassificationTask
+# from lavis.tasks.multimodal_classification import MultimodalClassificationTask
 
 from lavis.common.utils import is_url
 from lavis.models.blip2_models.Qformer import BertConfig, BertLMHeadModel
@@ -2634,7 +2634,7 @@ class Blip2VicunaXInstruct(Blip2Base):
         return _IncompatibleKeys(missing_keys, unexpected_keys)
     
 
-    def before_evaluation(self, dataset, task_type, **kwargs):
-        if task_type == MultimodalClassificationTask:
-            self.candidates = dataset.classnames
-            print(self.candidates)
+    # def before_evaluation(self, dataset, task_type, **kwargs):
+    #     if task_type == MultimodalClassificationTask:
+    #         self.candidates = dataset.classnames
+    #         print(self.candidates)
