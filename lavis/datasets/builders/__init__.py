@@ -54,7 +54,7 @@ from lavis.datasets.builders.caption_builder import (
 #     ViolinEntailmentBuilder,
 #     ESC50ClassificationBuilder
 # )
-from lavis.datasets.builders.imagefolder_builder import ImageNetBuilder
+# from lavis.datasets.builders.imagefolder_builder import ImageNetBuilder
 # from lavis.datasets.builders.video_qa_builder import (
 #     MSRVTTQABuilder, 
 #     MSVDQABuilder,
@@ -134,7 +134,7 @@ __all__ = [
     # "DiDeMoRetrievalBuilder",
     # "Flickr30kBuilder",
     # "GQABuilder",
-    "ImageNetBuilder",
+    # "ImageNetBuilder",
     # "MSRVTTCapBuilder",
     # "MSRVTTQABuilder",
     # "MSRVTTRetrievalBuilder",
