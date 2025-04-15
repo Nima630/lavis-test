@@ -30,7 +30,7 @@ import random
 from lavis.common.registry import registry
 from lavis.models.base_model import BaseModel
 from lavis.models.blip2_models.blip2 import Blip2Base, disabled_train, LayerNorm
-from lavis.models.ulip_models.ULIP_models import ULIP_PointBERT
+# from lavis.models.ulip_models.ULIP_models import ULIP_PointBERT
 from lavis.tasks.multimodal_classification import MultimodalClassificationTask
 
 from lavis.common.utils import is_url
@@ -818,39 +818,39 @@ class Blip2VicunaXInstruct(Blip2Base):
         ln = self.init_ln(encoder.num_features, load_ln_path=load_ln_path, load_ln_type=load_ln_type)
         return encoder, ln
 
-    def init_pc_encoder(
-        self, model_name, precision, **kwargs
-        ):
-        assert model_name in [
-            "ulip1_pointbert",
-            "ulip2_pointbert",
-            "ulip_shapenet", 
-            "ulip_objaverse",
-            "objaverse_shapenet_k_1",
-            "ulip2_scaledup"
-            ""
-        ], "pc model must be in [ulip1_pointbert,ulip2_pointbert]"
+    # def init_pc_encoder(
+    #     self, model_name, precision, **kwargs
+    #     ):
+    #     assert model_name in [
+    #         "ulip1_pointbert",
+    #         "ulip2_pointbert",
+    #         "ulip_shapenet", 
+    #         "ulip_objaverse",
+    #         "objaverse_shapenet_k_1",
+    #         "ulip2_scaledup"
+    #         ""
+    #     ], "pc model must be in [ulip1_pointbert,ulip2_pointbert]"
 
-        load_ln_path = kwargs['load_ln_path']
-        del kwargs['load_ln_path']
-        load_ln_type=kwargs['load_ln_type']
-        del kwargs['load_ln_type']
+    #     load_ln_path = kwargs['load_ln_path']
+    #     del kwargs['load_ln_path']
+    #     load_ln_type=kwargs['load_ln_type']
+    #     del kwargs['load_ln_type']
 
-        if model_name == "ulip2_pointbert":
-            pc_encoder = ULIP_PointBERT(ulip_v=2)
-        elif model_name == "ulip_shapenet":
-            pc_encoder = ULIP_PointBERT(ulip_v="shapenet")
-        elif model_name == "ulip_objaverse":
-            pc_encoder = ULIP_PointBERT(ulip_v="objaverse_k_1")
-        elif model_name == "objaverse_shapenet_k_1":
-             pc_encoder = ULIP_PointBERT(ulip_v="objaverse_shapenet_k_1")
-        elif model_name == "ulip2_scaledup":
-            pc_encoder = ULIP_PointBERT(ulip_v="ulip2_scaledup")
-        else:
-            pc_encoder = ULIP_PointBERT(ulip_v=1)
-        ln_pc = self.init_ln(pc_encoder.num_features, load_ln_path=load_ln_path, load_ln_type=load_ln_type)
-        self.pc_enc_name = model_name
-        return pc_encoder, ln_pc
+    #     if model_name == "ulip2_pointbert":
+    #         pc_encoder = ULIP_PointBERT(ulip_v=2)
+    #     elif model_name == "ulip_shapenet":
+    #         pc_encoder = ULIP_PointBERT(ulip_v="shapenet")
+    #     elif model_name == "ulip_objaverse":
+    #         pc_encoder = ULIP_PointBERT(ulip_v="objaverse_k_1")
+    #     elif model_name == "objaverse_shapenet_k_1":
+    #          pc_encoder = ULIP_PointBERT(ulip_v="objaverse_shapenet_k_1")
+    #     elif model_name == "ulip2_scaledup":
+    #         pc_encoder = ULIP_PointBERT(ulip_v="ulip2_scaledup")
+    #     else:
+    #         pc_encoder = ULIP_PointBERT(ulip_v=1)
+    #     ln_pc = self.init_ln(pc_encoder.num_features, load_ln_path=load_ln_path, load_ln_type=load_ln_type)
+    #     self.pc_enc_name = model_name
+    #     return pc_encoder, ln_pc
 
 
     def init_video_encoder(

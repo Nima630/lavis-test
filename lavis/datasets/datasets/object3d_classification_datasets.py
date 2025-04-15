@@ -16,7 +16,7 @@ import copy
 import random
 import pickle
 from PIL import Image
-from lavis.processors.ulip_processors import farthest_point_sample, pc_normalize
+# from lavis.processors.ulip_processors import farthest_point_sample, pc_normalize
 from lavis.datasets.datasets.base_dataset import BaseDataset
 
 
@@ -87,52 +87,52 @@ class ModelNetClassificationDataset(BaseDataset, __DisplMixin):
             with open(self.save_path, 'rb') as f:
                 self.list_of_points, self.list_of_labels = pickle.load(f)
 
-    def _process_raw_data(self):
-        self.list_of_points = [None] * len(self.datapath)
-        self.list_of_labels = [None] * len(self.datapath)
-        for index in tqdm(range(len(self.datapath)), total=len(self.datapath)):
-            fn = self.datapath[index]
-            cls = self.classes[self.datapath[index][0]]
-            cls = np.array([cls]).astype(np.int32)
-            point_set = np.loadtxt(fn[1], delimiter=',').astype(np.float32)
+    # def _process_raw_data(self):
+    #     self.list_of_points = [None] * len(self.datapath)
+    #     self.list_of_labels = [None] * len(self.datapath)
+    #     for index in tqdm(range(len(self.datapath)), total=len(self.datapath)):
+    #         fn = self.datapath[index]
+    #         cls = self.classes[self.datapath[index][0]]
+    #         cls = np.array([cls]).astype(np.int32)
+    #         point_set = np.loadtxt(fn[1], delimiter=',').astype(np.float32)
 
-            if self.uniform:
-                point_set = farthest_point_sample(point_set, self.npoints)
-                print("uniformly sampled out {} points".format(self.npoints))
-            else:
-                point_set = point_set[0:self.npoints, :]
+    #         if self.uniform:
+    #             point_set = farthest_point_sample(point_set, self.npoints)
+    #             print("uniformly sampled out {} points".format(self.npoints))
+    #         else:
+    #             point_set = point_set[0:self.npoints, :]
 
-            self.list_of_points[index] = point_set
-            self.list_of_labels[index] = cls
+    #         self.list_of_points[index] = point_set
+    #         self.list_of_labels[index] = cls
 
-        with open(self.save_path, 'wb') as f:
-            pickle.dump([self.list_of_points, self.list_of_labels], f)
+    #     with open(self.save_path, 'wb') as f:
+    #         pickle.dump([self.list_of_points, self.list_of_labels], f)
 
     def __len__(self):
         return len(self.list_of_labels)
 
-    def _get_item(self, index):
-        if self.process_data:
-            point_set, label = self.list_of_points[index], self.list_of_labels[index]
-        else:
-            fn = self.datapath[index]
-            cls = self.classes[self.datapath[index][0]]
-            label = np.array([cls]).astype(np.int32)
-            point_set = np.loadtxt(fn[1], delimiter=',').astype(np.float32)
+    # def _get_item(self, index):
+    #     if self.process_data:
+    #         point_set, label = self.list_of_points[index], self.list_of_labels[index]
+    #     else:
+    #         fn = self.datapath[index]
+    #         cls = self.classes[self.datapath[index][0]]
+    #         label = np.array([cls]).astype(np.int32)
+    #         point_set = np.loadtxt(fn[1], delimiter=',').astype(np.float32)
             
-            # Uniform sampling or trimming
-            if self.uniform:
-                point_set = farthest_point_sample(point_set, self.npoints)
-            else:
-                point_set = point_set[0:self.npoints, :]
-        if self.npoints < point_set.shape[0]:
-            point_set = farthest_point_sample(point_set, self.npoints)
+    #         # Uniform sampling or trimming
+    #         if self.uniform:
+    #             point_set = farthest_point_sample(point_set, self.npoints)
+    #         else:
+    #             point_set = point_set[0:self.npoints, :]
+    #     if self.npoints < point_set.shape[0]:
+    #         point_set = farthest_point_sample(point_set, self.npoints)
 
-        point_set[:, 0:3] = pc_normalize(point_set[:, 0:3])
-        if not self.use_normals:
-            point_set = point_set[:, 0:3]
+    #     point_set[:, 0:3] = pc_normalize(point_set[:, 0:3])
+    #     if not self.use_normals:
+    #         point_set = point_set[:, 0:3]
             
-        return point_set, label[0]
+    #     return point_set, label[0]
 
     def __getitem__(self, index):
         points, label = self._get_item(index)

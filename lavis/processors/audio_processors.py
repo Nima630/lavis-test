@@ -15,7 +15,7 @@ import torchaudio.compliance.kaldi as ta_kaldi
 
 from lavis.common.registry import registry
 from lavis.processors.base_processor import BaseProcessor
-from lavis.models.beats.Tokenizers import TokenizersConfig, Tokenizers
+# from lavis.models.beats.Tokenizers import TokenizersConfig, Tokenizers
 
 MAX_INT = registry.get("MAX_INT")
 
