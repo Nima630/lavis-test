@@ -25,7 +25,7 @@ from lavis.processors.blip_processors import (
 #     GPTVideoFeatureProcessor,
 #     GPTDialogueProcessor,
 # )
-from lavis.processors.clip_processors import ClipImageTrainProcessor
+# from lavis.processors.clip_processors import ClipImageTrainProcessor
 # from lavis.processors.audio_processors import BeatsAudioProcessor
 # from lavis.processors.ulip_processors import ULIPPCProcessor
 from lavis.processors.instruction_text_processors import BlipInstructionProcessor
@@ -47,7 +47,7 @@ __all__ = [
     # "BlipDiffusionInputImageProcessor",
     # "BlipDiffusionTargetImageProcessor",
     # CLIP
-    "ClipImageTrainProcessor",
+    # "ClipImageTrainProcessor",
     # GPT
     # "GPTVideoFeatureProcessor",
     # "GPTDialogueProcessor",
